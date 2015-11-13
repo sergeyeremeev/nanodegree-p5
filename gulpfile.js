@@ -4,6 +4,9 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
+    concat = require('gulp-concat'),
+    autoprefixer = require('gulp-autoprefixer'),
+    concat = require('gulp-concat'),
     minifyCSS = require('gulp-minify-css'),
     imageop = require('gulp-image-optimization');
 
@@ -32,19 +35,25 @@ gulp.task('scripts', function () {
 });
 
 // compile sass to css
-gulp.task('sass', function () {
-    gulp.src('dev/**/*.scss')
+gulp.task('styles', function () {
+    var sassOptions = {
+        errLogToConsole: true,
+        outputStyle: 'expanded'
+    };
+    
+    var autoprefixerOptions = {
+        browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
+    };
+    
+    gulp.src('dev/sass/**/*.scss')
         .pipe(sourcemaps.init())
-            .pipe(sass({outputStyle: 'expanded'}))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('build')); 
-});
-
-// minify styles
-gulp.task('styles', ['sass'], function () {
-    gulp.src('dev/**/*.css')
+            .pipe(sass(sassOptions).on('error', sass.logError))
+            .pipe(concat('style.css'))
+            .pipe(autoprefixer(autoprefixerOptions))
+        .pipe(sourcemaps.write('maps/'))
+        .pipe(gulp.dest('dev/css/'))
         .pipe(minifyCSS())
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('build/css/'));
 });
 
 // optimize images
@@ -60,7 +69,7 @@ gulp.task('images', function(cb) {
 
 // watch task
 gulp.task('watch', function () {
-    gulp.watch('dev/**/*.css', ['styles']);
+    gulp.watch('dev/sass/**/*.scss', ['styles']);
     gulp.watch('dev/**/*.html', ['html']);
     gulp.watch('dev/**/*.js', ['scripts']);
 });
@@ -68,5 +77,5 @@ gulp.task('watch', function () {
 // default build task to clean build directory, then create the correct folder
 // structure with minified files, optimized images and inline critical css.
 gulp.task('default', ['clean'], function () {
-    gulp.start('scripts', 'styles', 'html', 'images');
+    gulp.start('scripts', 'styles   ', 'html', 'images');
 });
