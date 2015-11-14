@@ -69,13 +69,13 @@ gulp.task('images', function(cb) {
 
 // watch task
 gulp.task('watch', function () {
-    gulp.watch('dev/sass/**/*.scss', ['styles']);
     gulp.watch('dev/**/*.html', ['html']);
+    gulp.watch('dev/sass/**/*.scss', ['styles']);
     gulp.watch('dev/**/*.js', ['scripts']);
 });
 
 // default build task to clean build directory, then create the correct folder
 // structure with minified files, optimized images and inline critical css.
 gulp.task('default', ['clean'], function () {
-    gulp.start('scripts', 'styles   ', 'html', 'images');
+    gulp.start('html', 'scripts', 'styles', 'images');
 });
