@@ -1,3 +1,11 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-family: Mako;
+}
+
 html,
 body,
 .wrapper {
@@ -5,5 +13,10 @@ body,
 }
 
 #map {
-	height: 100%;
+	height: calc(100% - 66px);
 }
+
+$colorSand: #eabd8d;
+$colorBrown: #584738;
+$colorLightBrown: #cc9c71;
+$colorCream: #ffdfb8;

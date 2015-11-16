@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Locations</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Mako' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="wrapper">
       <div id="map"></div>
       <div class="menu-wrapper">
         <div class="menu-toggle">
-          <i class="icon-gear"></i>
+          <i class="icon-cross"></i>
         </div>
         <nav class="locations-menu">
           <form>
             <input type="text" placeholder="Location name...">
-            <input type="submit" value="">
+            <button type="submit"><i class="icon-search"></i></button>
           </form>
           <ul class="locations-list">
-            <li>Location</li>
+            <li>Location <i class="icon-location"></i></li>
           </ul>
+          <div class="no-results">
+            No results matching your query
+          </div>
         </nav>
       </div>
       <footer class="page-footer">

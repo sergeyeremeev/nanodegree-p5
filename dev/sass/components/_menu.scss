@@ -1,0 +1,134 @@
+.menu-wrapper {
+	position: absolute;
+	right: 0;
+	top: 10%;
+	width: 290px;
+	
+	.menu-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		top: 32px;
+		width: 42px;
+		height: 42px;
+		margin-bottom: -42px;
+		border-radius: 4px 0 0 4px;
+		border: 1px solid $colorBrown;
+		border-right: 0;
+		background: $colorSand;
+		cursor: pointer;
+		
+		i {
+			font-size: 24px;
+		}
+	}
+	
+	.locations-menu {
+		position: relative;
+		top: 0;
+		left: 42px;
+		width: calc(100% - 42px);
+		border: 1px solid $colorBrown;
+		border-right: 0;
+		background: $colorSand;
+		color: $colorBrown;
+		
+		form {
+			height: 53px;
+			width: 100%;
+			border-bottom: 1px solid $colorBrown;
+			
+			input {
+				float: left;
+				width: calc(100% - 52px);
+				height: 52px;
+				background: $colorCream;
+				padding: 0 10px 0 20px;
+				border: 0;
+				font-size: 16px;
+				color: #000;
+				
+				&::-webkit-input-placeholder {
+					color: $colorLightBrown;
+				}
+	
+				&:-moz-placeholder {
+					color: $colorLightBrown;
+				}
+	
+				&::-moz-placeholder {
+					color: $colorLightBrown;
+				}
+	
+				&:-ms-input-placeholder {
+					color: $colorLightBrown;
+				}
+				
+				&:focus {
+					outline: none;
+					box-shadow: none;
+				}
+			}
+			
+			button {
+				float: left;
+				width: 52px;
+				height: 52px;
+				border: 0;
+				border-left: 1px solid $colorBrown;
+				background: $colorCream;
+				padding: 0;
+				
+				&:focus {
+					outline: none;
+					box-shadow: none;
+				}
+				
+				i {
+					font-size: 18px;
+					color: $colorLightBrown;
+				}
+				
+				&:hover i {
+					color: $colorBrown;
+				}
+			}
+		}
+		
+		ul {
+			list-style-type: none;
+			padding: 0 20px;
+			margin: 0;
+			
+			li {
+				position: relative;
+				height: 42px;
+				line-height: 42px;
+				border-bottom: 1px solid $colorLightBrown;
+				
+				&:last-child {
+					border-bottom: 0;
+				}
+				
+				i {
+					position: absolute;
+					right: 0;
+					top: 12px;
+					font-size: 18px;
+				}
+			}
+		}
+		
+		.no-results {
+			display: none;
+			height: 104px;
+			line-height: 104px;
+			text-align: center;
+			text-transform: uppercase;
+			font-weight: 700;
+			font-style: italic;
+			font-size: 12px;
+		}
+	}
+}
