@@ -1,5 +1,11 @@
 * {
-	box-sizing: border-box;
+	box-sizing: border-box !important;
+}
+
+input,
+select,
+textarea {
+	-webkit-appearance: none !important;
 }
 
 html {
