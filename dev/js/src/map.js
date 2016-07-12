@@ -167,7 +167,7 @@ var App = (function() {
 
         // callback function for nearbySearch function to find nearby places and create markers for each place
         function nearbySearchCallback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
 
                 var resultsLength = results.length;
 
@@ -194,11 +194,19 @@ var App = (function() {
                         )
                     );
                 }
+
                 // update map zoom and center after all markers are created, to make sure they all fit on screen
                 map.fitBounds(bounds);
 
+                // call fitBounds on window resize, so the markers always stay on screen
+                window.onresize = function() {
+                    map.fitBounds(bounds);
+                };
+
                 // set placesLoaded to true, so we can now use filter function
                 self.placesLoaded(true);
+            } else {
+                alert("Sorry, Google Place Search was unable to return any results.");
             }
         }
 
@@ -272,21 +280,20 @@ var App = (function() {
                 url: yelpAuth.url,
                 data: parameters,
                 cache: true,
-                dataType: 'jsonp',
+                dataType: 'jsonp'
+            }).done(function () {
 
-                // log successes and errors for convenience
-                success: function () {
-                    console.log('yelp successful');
-                },
-                error: function () {
-                    console.log('Yelp not available');
-                },
+                // log success message
+                console.log('yelp successful');
+            }).fail(function () {
+
+                // log error message
+                console.log('Yelp not available');
+            }).always(function (data) {
 
                 // store data and call wiki function after yelp request returns data
-                complete: function (data) {
-                    placeData.yelp = data;
-                    getWikiInfo(place, placeData, callback);
-                }
+                placeData.yelp = data;
+                getWikiInfo(place, placeData, callback);
             });
         }
 
@@ -307,26 +314,28 @@ var App = (function() {
             $.ajax({
                 url: 'https://en.wikipedia.org/w/api.php',
                 data: wikiParams,
-                dataType: 'jsonp',
-                // log successes and errors for convenience
-                success: function () {
-                    console.log('wiki successful');
-                },
-                error: function () {
-                    console.log('wiki not available');
-                },
-                complete: function (data) {
-                    placeData.wiki = data;
-                    callback(placeData);
-                }
+                dataType: 'jsonp'
+            }).done(function () {
+
+                // log success message
+                console.log('Wiki successful');
+            }).fail(function () {
+
+                // log error message
+                console.log('Wiki not available');
+            }).always(function (data) {
+                placeData.wiki = data;
+                callback(placeData);
             });
         }
 
         // function to add click event listeners to each marker
         function clickMarker(marker, place) {
 
-            // call openInfoWindow function on marker click
+            // center viewport on the marker and call openInfoWindow function on marker click
             google.maps.event.addListener(marker, 'click', function () {
+                map.panTo(marker.getPosition());
+
                 openInfoWindow(place, marker);
             });
         }
@@ -347,14 +356,12 @@ var App = (function() {
                 // Add read more link at the end of the snippet
                 var wikiText = '',
                     wikiLink = '';
-                if (placeData.wiki.responseJSON) {
-                    if (placeData.wiki.responseJSON.error) {
-                        wikiText = 'Sorry, wiki data for this place is not available.';
-                    } else {
-                        var wikiHtml = placeData.wiki.responseJSON.parse.text['*'];
-                        wikiLink = 'https://www.wikipedia.org/wiki/' + place.name.replace(/ /g, "_");
-                        wikiText = $('<div/>').html(wikiHtml).text().substring(0, 330) + '...';
-                    }
+                if (placeData.wiki.parse) {
+                    var wikiHtml = placeData.wiki.parse.text['*'];
+                    wikiLink = 'https://www.wikipedia.org/wiki/' + place.name.replace(/ /g, "_");
+                    wikiText = $('<div/>').html(wikiHtml).text().substring(0, 330) + '...';
+                } else if (placeData.wiki.error) {
+                    wikiText = 'Sorry, wiki data for this place is not available.';
                 } else {
                     wikiText = 'Wikipedia service is not available';
                 }
@@ -375,18 +382,18 @@ var App = (function() {
                 // check that yelp request returned data, if not, display 'not available' error, then
                 // check that yelp has returned any business. If not, display 'no data returned' message
                 // else, assign appropriate data to the variables
-                if (placeData.yelp.responseJSON) {
-                    if (placeData.yelp.responseJSON.businesses.length === 0) {
+                if (placeData.yelp.businesses) {
+                    if (placeData.yelp.businesses.length === 0) {
                         yelpData.message = 'Sorry, yelp data for this place is not available.';
                     } else {
-                        yelpData.name = placeData.yelp.responseJSON.businesses[0].name;
-                        yelpData.img = placeData.yelp.responseJSON.businesses[0].image_url;
-                        yelpData.text = placeData.yelp.responseJSON.businesses[0].snippet_text;
-                        yelpData.rating = placeData.yelp.responseJSON.businesses[0].rating;
-                        yelpData.ratingStars = placeData.yelp.responseJSON.businesses[0].rating_img_url;
-                        yelpData.reviewCount = placeData.yelp.responseJSON.businesses[0].review_count;
-                        yelpData.url = placeData.yelp.responseJSON.businesses[0].url;
-                        yelpPhone = placeData.yelp.responseJSON.businesses[0].display_phone;
+                        yelpData.name = placeData.yelp.businesses[0].name;
+                        yelpData.img = placeData.yelp.businesses[0].image_url;
+                        yelpData.text = placeData.yelp.businesses[0].snippet_text;
+                        yelpData.rating = placeData.yelp.businesses[0].rating;
+                        yelpData.ratingStars = placeData.yelp.businesses[0].rating_img_url;
+                        yelpData.reviewCount = placeData.yelp.businesses[0].review_count;
+                        yelpData.url = placeData.yelp.businesses[0].url;
+                        yelpPhone = placeData.yelp.businesses[0].display_phone;
                     }
                 } else {
                     yelpData.message = 'Yelp service is not available';
