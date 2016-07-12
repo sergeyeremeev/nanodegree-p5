@@ -478,6 +478,12 @@ function AppViewModel() {
     };
 }
 
+// initialise application if google maps were loaded successfully
 function initMap() {
     ko.applyBindings(new AppViewModel());
+}
+
+// alert error to the screen if there was a problem loading google maps
+function googleError() {
+    alert("There was a problem loading google maps!");
 }

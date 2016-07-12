@@ -13,7 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Mako' rel='stylesheet'>
   </head>
   <body>
-    <div class="wrapper">
+    <main class="wrapper">
       <div id="map"></div>
       <div class="menu-wrapper" data-bind="css: {open: menuOpen}">
         <div class="menu-toggle" data-bind="click: toggleMenu">
@@ -36,7 +36,7 @@
       <footer class="page-footer">
         <div class="logo">Locations Around Empire State Bldg</div>
       </footer>
-    </div>
+    </main>
     
     <script type="text/template" id="infowindow-content">
       <div class="iw-content-wrapper">
@@ -102,6 +102,6 @@
     <script src="js/vendor/jquery-3.0.0.js"></script>
     <script src="js/src/oauth-signature.js"></script>
     <script src="js/src/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXRGN5puIxbkwXhf3PdIyok3bNb0fMfb8&amp;callback=initMap&amp;libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXRGN5puIxbkwXhf3PdIyok3bNb0fMfb8&amp;callback=initMap&amp;libraries=places" onerror="googleError()"></script>
   </body>
 </html>
