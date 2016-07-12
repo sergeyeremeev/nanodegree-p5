@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
     autoprefixer = require('gulp-autoprefixer'),
-    concat = require('gulp-concat'),
     minifyCSS = require('gulp-minify-css'),
     imageop = require('gulp-image-optimization');
 
@@ -16,7 +15,7 @@ gulp.task('clean', function (cb) {
 });
 
 // minify html
-gulp.task('html', function() {
+gulp.task('html', function () {
   var opts = {
     empty: true,
     spare: true
@@ -32,6 +31,12 @@ gulp.task('scripts', function () {
     gulp.src('dev/**/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('build'));
+});
+
+// copy fonts
+gulp.task('fonts', function () {
+    gulp.src('dev/fonts/**')
+        .pipe(gulp.dest('build/fonts'));
 });
 
 // compile sass to css
@@ -57,7 +62,7 @@ gulp.task('styles', function () {
 });
 
 // optimize images
-gulp.task('images', function(cb) {
+gulp.task('images', function () {
     gulp.src(['dev/**/*.png','dev/**/*.jpg','dev/**/*.gif','dev/**/*.jpeg'])
         .pipe(imageop({
             optimizationLevel: 5,
@@ -77,5 +82,5 @@ gulp.task('watch', function () {
 // default build task to clean build directory, then create the correct folder
 // structure with minified files, optimized images and inline critical css.
 gulp.task('default', ['clean'], function () {
-    gulp.start('html', 'scripts', 'styles', 'images');
+    gulp.start('html', 'scripts', 'styles', 'images', 'fonts');
 });

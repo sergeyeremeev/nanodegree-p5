@@ -1,3 +1,10 @@
+$colorSand: #eabd8d;
+$colorBrown: #584738;
+$colorLightBrown: #cc9c71;
+$colorCream: #ffdfb8;
+$colorRed: #c14444;
+$colorGreen: #86c186;
+
 * {
 	box-sizing: border-box !important;
 }
@@ -18,11 +25,136 @@ body,
 	height: 100%;
 }
 
+body {
+	overflow: hidden;
+}
+
 #map {
 	height: calc(100% - 66px);
 }
 
-$colorSand: #eabd8d;
-$colorBrown: #584738;
-$colorLightBrown: #cc9c71;
-$colorCream: #ffdfb8;
+
+.iw-loading {
+	display: block;
+	width: 50px;
+	height: 50px;
+	background: url(../img/loading.gif) no-repeat;
+	background-size: 100%;
+}
+
+.iw-content-wrapper,
+.gm-style-iw {
+	min-width: 300px;
+	min-height: 50px;
+}
+
+.iw-content-wrapper {
+	color: $colorBrown;
+}
+
+.tabs {
+	list-style-type: none;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+
+	li {
+		width: 100px;
+		height: 25px;
+		line-height: 25px;
+		float: left;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: underline;
+
+		&.selected {
+			background: $colorCream;
+		}
+
+		&:hover {
+			background: #eee;
+		}
+	}
+}
+
+.tab-single {
+	display: none;
+	padding-top: 15px;
+	width: 300px;
+
+	&.current {
+		display: block;
+	}
+}
+
+.tab-content {
+
+	h2 {
+		margin: 0 0 10px;
+	}
+
+	p {
+		margin: 5px 0;
+	}
+
+	.phone {
+		display: block;
+		margin: 10px 0;
+	}
+
+	i {
+		margin-right: 12px;
+		font-size: 16px;
+		float: left;
+	}
+
+	.open-now {
+
+		&.open {
+			color: $colorGreen;
+		}
+
+		&.closed {
+			color: $colorRed;
+		}
+	}
+}
+
+.yelp-img {
+	width: 100px;
+	height: auto;
+	float: left;
+}
+
+.review-text {
+	float: left;
+	padding-left: 10px;
+	width: calc(100% - 100px);
+	font-size: 13px;
+	line-height: 1.1;
+}
+
+.rating-stars {
+	display: block;
+	clear: both;
+	padding-top: 10px;
+}
+
+.rating-stars span {
+	float: right;
+
+	a {
+		color: $colorLightBrown;
+	}
+}
+
+.wiki-text a {
+	color: $colorBrown;
+}
+
+.wikipedia-link {
+	display: block;
+	margin-top: 10px;
+	line-height: 1.2;
+	color: $colorLightBrown;
+}
