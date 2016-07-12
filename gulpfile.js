@@ -39,6 +39,12 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest('build/fonts'));
 });
 
+// copy manifest
+gulp.task('manifest', function () {
+    gulp.src('dev/manifest.json')
+        .pipe(gulp.dest('build/'));
+});
+
 // compile sass to css
 gulp.task('styles', function () {
     var sassOptions = {
@@ -82,5 +88,5 @@ gulp.task('watch', function () {
 // default build task to clean build directory, then create the correct folder
 // structure with minified files, optimized images and inline critical css.
 gulp.task('default', ['clean'], function () {
-    gulp.start('html', 'scripts', 'styles', 'images', 'fonts');
+    gulp.start('html', 'scripts', 'styles', 'images', 'fonts', 'manifest');
 });

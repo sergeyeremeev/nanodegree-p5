@@ -1,0 +1,13 @@
+{
+  "name": "Nearby Places Finder",
+  "short_name": "Place Finder",
+  "start_url": "./?utm_source=web_app_manifest",
+  "display": "standalone",
+  "theme_color": "#ffdfb8",
+  "background_color": "#eabd8d",
+  "icons": [{
+    "src": "img/launcher-icon.png",
+    "sizes": "48x48 96x96 144x144 192x192",
+    "type": "image/png"
+  }]
+}
