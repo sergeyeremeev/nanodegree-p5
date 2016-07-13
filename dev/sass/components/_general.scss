@@ -109,13 +109,10 @@ body {
 	}
 
 	.open-now {
+		color: $colorRed;
 
 		&.open {
 			color: $colorGreen;
-		}
-
-		&.closed {
-			color: $colorRed;
 		}
 	}
 }

@@ -547,12 +547,12 @@ body {
   float: left;
 }
 
-.tab-content .open-now.open {
-  color: #86c186;
+.tab-content .open-now {
+  color: #c14444;
 }
 
-.tab-content .open-now.closed {
-  color: #c14444;
+.tab-content .open-now.open {
+  color: #86c186;
 }
 
 .yelp-img {
